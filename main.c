@@ -78,12 +78,13 @@ void deleteNode(Student** head, const char* name) {
     if (prev != NULL) {
         prev->next = tmp->next;
     } else {
-        // This means the deleted node in the head node
+        // This means the node to delete is the head node
         *head = tmp->next;
     }
 }
 
-
+// what we want is for each loop, we move the current
+// node by one position.
 void reverseList(Student** head) {
     Student* tmp = *head;
     Student* curr = NULL;
@@ -140,6 +141,8 @@ int main(void) {
     insertNode(nodeToInsertAt, newNode);
 
     deleteNode(&head, "James");
+
+    reverseList(&head);
 
     printList(head);
 
