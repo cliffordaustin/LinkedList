@@ -6,20 +6,21 @@ typedef struct Student {
     char* name;
     char* subject;
     unsigned int age;
-    char grade[2];
+    char grade[3];
     struct Student* next;
 } Student;
 
 typedef struct studentData {
     char* name;
     char* subject;
-    char grade[2];
+    char grade[3];
     unsigned int age;
 } studentData;
 
 void printList(Student* student) {
     if (student == NULL) {
-        printf("Empty student data");
+        fprintf(stderr, "Empty student data in printList\n");
+        return;
     }
 
     Student* tmp = student;
@@ -39,12 +40,12 @@ void inserNodeToHead(Student** head, Student* newNode) {
     *head = newNode;
 }
 
-Student* createNode(char* name, char* subject, char grade[2], const int age) {
+Student* createNode(char* name, char* subject, char grade[3], const int age) {
     Student* student = malloc(sizeof(*student));
     student->name = name;
     student->subject = subject;
     student->age = age;
-    strncpy(student->grade, grade, 2);
+    snprintf(student->grade, sizeof(student->grade), "%s", grade);
     student->next = NULL;
 
     return student;
@@ -53,7 +54,7 @@ Student* createNode(char* name, char* subject, char grade[2], const int age) {
 Student* getNode(Student* head, const char* name) {
     Student* tmp = head;
 
-    while (tmp->name != name) {
+    while (tmp != NULL && strcmp(tmp->name, name) != 0) {
         tmp = tmp->next;
     }
     return tmp;
